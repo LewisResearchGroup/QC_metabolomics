@@ -88,14 +88,17 @@ try:
     
     
     st.write('#### set a threshold for the ratio between the growth control samples and the media control samples')
-    s_st.threshold_0 = int(st.text_input("set a threshold for GControl/MSamples", '10'))
+    s_st.threshold_0 = int(st.text_input("set a threshold for GControl/MSamples", '100'))
     
     div = np.mean(s_st.results[s_st.value_column][(s_st.results.peak_label == s_st.cp) & (s_st.results.ms_file.str.contains(s_st.gr_flag))]) / \
        np.mean(s_st.results[s_st.value_column][(s_st.results.peak_label == s_st.cp) & (s_st.results.ms_file.str.contains(s_st.me_flag))])
     
     st.write(div)
     if div > 1/s_st.threshold_0:
-        st.write('# Hey Sr, your controls didnt grow that well')
+        st.write('# Hey Sr, your controls didnt grow that well!!!!')
+        
+    if div <= 1/s_st.threshold_0:
+        st.write('# Hey Sr, it looks like your controls grew well 🥳🥳🥳🥳')
     
 except:
     st.write('some point in your settings failed')

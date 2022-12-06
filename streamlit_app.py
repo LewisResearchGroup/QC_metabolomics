@@ -96,6 +96,9 @@ try:
     st.write(div)
     if div > 1/s_st.threshold_0:
         st.write('# Hey Sr, your controls didnt grow that well!!!!')
+        
+    if div <= 1/s_st.threshold_0:
+        st.write('# Hey Sr, it looks like your controls grew well 🥳🥳🥳🥳')
     
 except:
     st.write('some point in your settings failed')
