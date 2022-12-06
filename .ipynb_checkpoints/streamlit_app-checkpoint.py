@@ -3,8 +3,6 @@
 
 # In[2]:
 
-
-import matplotlib.pyplot as plt
 import os
 import pandas as pd
 import datetime
