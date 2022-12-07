@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 install_requires = [
     'pandas', 
-    'streamlit==0.082.0',
+    'streamlit==1.11.1',
     'molmass',
     'ms-mint'
 ]
