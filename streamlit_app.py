@@ -88,14 +88,14 @@ try:
     s_st.flux = st.selectbox('select the compound interchange type \n', ['influx', 'eflux'])    
     
     st.write('#### set a threshold for the ratio between the growth control samples and the media control samples')
-    s_st.threshold_0 = float(st.text_input("set a threshold for MSamples/GControl", '100'))
+    s_st.threshold_0 = float(st.text_input("set a threshold for GControl/MSamples", '100'))
     
     div = np.mean(s_st.results[s_st.value_column][(s_st.results.peak_label == s_st.cp) & (s_st.results.ms_file.str.contains(s_st.gr_flag))]) / \
        np.mean(s_st.results[s_st.value_column][(s_st.results.peak_label == s_st.cp) & (s_st.results.ms_file.str.contains(s_st.me_flag))])
     
     
-    st.write('the fraction of the compound between the growth control samples and the control media is:')
-    st.write(div)
+    st.write('the fraction of the compound between the growth media and the control control samples is:')
+    st.write(1/div)
     
     if (s_st.flux == 'influx') & (div > 1/s_st.threshold_0):
         st.write('# Hey Sr, your controls didnt grow that well 😭😭😭😭😭')
@@ -134,8 +134,16 @@ def get_percent_above(lista, thr):
     return 100*len(lista[abs(lista) > thr])/len(lista)
 
 
+
+
 try:
     s_st.results = pd.read_csv(results_file)
+except:
+    pass
+
+
+try:
+    s_st = SessionState.get(results = pd.read_csv(results_file))
 except:
     pass
 
