@@ -81,22 +81,29 @@ try:
     st.write('#### indicate the media control sample')
     s_st.me_flag = st.text_input("media control sample flag", 'MHPool')
     
-    st.write('#### indicate the consuming compound used for growing measurement')
+    st.write('#### indicate the compound used for growing measurement')
     s_st.cp = st.selectbox('select the growing measurement compound \n', list(np.unique(s_st.results.peak_label)))
     
+    st.write('#### indicate if the compound used for growing measurement is a consuming or a secreting one')
+    s_st.flux = st.selectbox('select the compound interchange type \n', ['influx', 'eflux'])    
     
     st.write('#### set a threshold for the ratio between the growth control samples and the media control samples')
-    s_st.threshold_0 = int(st.text_input("set a threshold for GControl/MSamples", '100'))
+    s_st.threshold_0 = float(st.text_input("set a threshold for MSamples/GControl", '100'))
     
     div = np.mean(s_st.results[s_st.value_column][(s_st.results.peak_label == s_st.cp) & (s_st.results.ms_file.str.contains(s_st.gr_flag))]) / \
        np.mean(s_st.results[s_st.value_column][(s_st.results.peak_label == s_st.cp) & (s_st.results.ms_file.str.contains(s_st.me_flag))])
     
+    
+    st.write('the fraction of the compound between the growth control samples and the control media is:')
     st.write(div)
-    if div > 1/s_st.threshold_0:
-        st.write('# Hey Sr, your controls didnt grow that well!!!!')
+    
+    if (s_st.flux == 'influx') & (div > 1/s_st.threshold_0):
+        st.write('# Hey Sr, your controls didnt grow that well 😭😭😭😭😭')
         
-    if div <= 1/s_st.threshold_0:
-        st.write('# Hey Sr, it looks like your controls grew well 🥳🥳🥳🥳')
+    elif (s_st.flux == 'eflux') & (div < 1/s_st.threshold_0):
+        st.write('# Hey Sr, your controls didnt grow that well 😭😭😭😭😭')    
+    else:
+        st.write('# Hey Sr, it looks like your controls grew well 🥳🥳🥳🥳🥳')
     
 except:
     st.write('some point in your settings failed')
