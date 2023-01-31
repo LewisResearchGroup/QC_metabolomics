@@ -3,4 +3,3 @@ streamlit==0.82.0
 ms-mint
 matplotlib
 openpyxl
-matplotlib
