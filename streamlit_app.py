@@ -157,8 +157,8 @@ try:
     st.write('searching ....')
     k = 0
     for metab in np.unique(s_st.results.peak_label):
-#         st.write(metab)
         percent = get_percent_above(np.array(s_st.results.peak_mass_diff_50pc[s_st.results.peak_label == metab]), s_st.threshold_1)
+        print(percent)
         if percent > 10:
             k += 1
             if k == 1:
