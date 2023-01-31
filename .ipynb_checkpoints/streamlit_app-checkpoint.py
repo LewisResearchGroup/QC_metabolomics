@@ -11,7 +11,7 @@ import glob
 import re
 import streamlit as st
 from stlibs import SessionState
-
+import streamlit.report_thread as ReportThread
 
 
 # In[3]:
@@ -62,14 +62,12 @@ st.write('### Upload the results file generated on Mint')
 
 results_file = st.file_uploader('results file')
 
-s_st = SessionState.get(results = pd.read_csv(results_file))
-st.write('#### Your results file:')
-st.write(s_st.results.head()) 
+
 
 try:
-#     s_st = SessionState.get(results = pd.read_csv(results_file))
-#     st.write('#### Your results file:')
-#     st.write(s_st.results.head())  
+    s_st = SessionState.get(results = pd.read_csv(results_file))
+    st.write('#### Your results file:')
+    st.write(s_st.results.head())  
     
     
     st.write('#### indicate the intensity measurement')
@@ -160,7 +158,7 @@ try:
     k = 0
     for metab in np.unique(s_st.results.peak_label):
         percent = get_percent_above(np.array(s_st.results.peak_mass_diff_50pc[s_st.results.peak_label == metab]), s_st.threshold_1)
-        print(percent)
+#         print(percent)
         if percent > 10:
             k += 1
             if k == 1:
