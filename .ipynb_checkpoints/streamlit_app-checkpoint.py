@@ -62,12 +62,14 @@ st.write('### Upload the results file generated on Mint')
 
 results_file = st.file_uploader('results file')
 
-
+s_st = SessionState.get(results = pd.read_csv(results_file))
+st.write('#### Your results file:')
+st.write(s_st.results.head()) 
 
 try:
-    s_st = SessionState.get(results = pd.read_csv(results_file))
-    st.write('#### Your results file:')
-    st.write(s_st.results.head())  
+#     s_st = SessionState.get(results = pd.read_csv(results_file))
+#     st.write('#### Your results file:')
+#     st.write(s_st.results.head())  
     
     
     st.write('#### indicate the intensity measurement')
