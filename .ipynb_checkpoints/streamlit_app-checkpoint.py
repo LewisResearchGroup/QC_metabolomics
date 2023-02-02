@@ -23,12 +23,10 @@ class SessionState(object):
 def get(**kwargs):
 
     ctx = ReportThread.get_report_ctx()
-    st.write(ctx)
 
     this_session = None
 
     current_server = Server.get_current()
-    st.write(current_server)
     if hasattr(current_server, '_session_infos'):
         # Streamlit < 0.56
         session_infos = Server.get_current()._session_infos.values()
@@ -58,7 +56,8 @@ def get(**kwargs):
 
     if not hasattr(this_session, '_custom_session_state'):
         this_session._custom_session_state = SessionState(**kwargs)
-
+        
+    st.write(this_session)
     return this_session._custom_session_state
 
 # In[3]:
