@@ -110,7 +110,7 @@ results_file = st.file_uploader('results file')
 if results_file != '':
     st.write(results_file)
     s_st = get(results = pd.read_csv(results_file))
-    st.write(s_st)
+    st.write(s_st.results)
 
 # try:
 # #     s_st = SessionState.get(results = pd.read_csv(results_file))
