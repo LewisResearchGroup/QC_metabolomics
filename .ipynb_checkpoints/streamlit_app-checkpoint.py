@@ -11,7 +11,6 @@ import glob
 import re
 import streamlit as st
 from stlibs import SessionState
-import streamlit.report_thread as ReportThread
 
 
 # In[3]:
@@ -61,8 +60,6 @@ st.markdown('''# Growth control section''')
 st.write('### Upload the results file generated on Mint')
 
 results_file = st.file_uploader('results file')
-
-
 
 try:
     s_st = SessionState.get(results = pd.read_csv(results_file))
