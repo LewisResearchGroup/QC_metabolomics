@@ -14,6 +14,7 @@ import streamlit as st
 
 from streamlit.server.server import Server
 import streamlit.report_thread as ReportThread
+
 class SessionState(object):
     def __init__(self, **kwargs):
         for key, val in kwargs.items():
@@ -106,6 +107,7 @@ st.write('### Upload the results file generated on Mint')
 results_file = ''
 results_file = st.file_uploader('results file')
 if results_file != '':
+    st.write(results_file)
     s_st = get(results = pd.read_csv(results_file))
     st.write(s_st.results.head())
 
