@@ -10,6 +10,12 @@ import numpy as np
 import glob
 import re
 import streamlit as st
+from stlibs import SessionState
+
+from streamlit.server.server import Server
+import streamlit.report_thread as ReportThread
+
+
 
 
 def download_link(object_to_download, download_filename, download_link_text):
@@ -58,9 +64,9 @@ results_file = st.file_uploader('results file')
 
 
 try:
-#     s_st = SessionState.get(results = pd.read_csv(results_file))
-#     st.write('#### Your results file:')
-#     st.write(s_st.results.head())  
+    s_st = SessionState.get(results = pd.read_csv(results_file))
+    st.write('#### Your results file:')
+    st.write(s_st.results.head())  
     
     
     st.write('#### indicate the intensity measurement')
