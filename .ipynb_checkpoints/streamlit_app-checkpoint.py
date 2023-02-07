@@ -49,67 +49,11 @@ def display_button():
          #####    1) Growth control
          #####    2) M/Z drift calculation
          #####    3) RT drift (not sure yet)    
-         #####    4) Linear Ranges
-         #####    5) Detection limits based on signal to noise ratio (LOD and LOQ)
+         #####    4) Peak intensity
          ''')
         
 display_button()
 
-st.write(':heavy_minus_sign:' * 35)
-st.markdown('''# Growth control section''')
-
-
-st.write('### Upload the results file generated on Mint')
-results_file = st.file_uploader('results file')
-
-
-try:
-    s_st = SessionState.get(results = pd.read_csv(results_file))
-    st.write('#### Your results file:')
-    st.write(s_st.results.head())  
-    
-    
-    st.write('#### indicate the intensity measurement')
-    s_st.value_column = st.selectbox('select the intensity measurement \n', list(np.unique(s_st.results.columns)))
-    
-    
-    st.write('#### indicate the growth control sample')
-    s_st.gr_flag = st.text_input("growth control sample flag", 'ATCC')
-    
-    
-    st.write('#### indicate the media control sample')
-    s_st.me_flag = st.text_input("media control sample flag", 'MHPool')
-    
-    st.write('#### indicate the compound used for growing measurement')
-    s_st.cp = st.selectbox('select the growing measurement compound \n', list(np.unique(s_st.results.peak_label)))
-    
-    st.write('#### indicate if the compound used for growing measurement is a consuming or a secreting one')
-    s_st.flux = st.selectbox('select the compound interchange type \n', ['influx', 'eflux'])    
-    
-    st.write('#### set a threshold for the ratio between the growth control samples and the media control samples')
-    s_st.threshold_0 = float(st.text_input("set a threshold for GControl/MSamples", '100'))
-    
-    div = np.mean(s_st.results[s_st.value_column][(s_st.results.peak_label == s_st.cp) & (s_st.results.ms_file.str.contains(s_st.gr_flag))]) / \
-       np.mean(s_st.results[s_st.value_column][(s_st.results.peak_label == s_st.cp) & (s_st.results.ms_file.str.contains(s_st.me_flag))])
-    
-    
-    st.write('the fraction of the compound between the growth media and the control control samples is:')
-    st.write(1/div)
-    
-    if (s_st.flux == 'influx') & (div > 1/s_st.threshold_0):
-        st.write('# Hey Sr, your controls didnt grow that well 😭😭😭😭😭')
-        
-    elif (s_st.flux == 'eflux') & (div < 1/s_st.threshold_0):
-        st.write('# Hey Sr, your controls didnt grow that well 😭😭😭😭😭')    
-    else:
-        st.write('# Hey Sr, it looks like your controls grew well 🥳🥳🥳🥳🥳')
-    
-except:
-    st.write('some point in your settings failed')
-
-
-
-st.write(':heavy_minus_sign:' * 35)
 
 st.write(':heavy_minus_sign:' * 35)
 st.markdown('''# parameters drift control section''')
@@ -153,7 +97,7 @@ results_file = st.file_uploader('current results')
 
 try:
     s_st.results = pd.read_csv(results_file)
-    
+    s_st.results0 = s_st.results.copy()
 except:
     pass
 
@@ -318,4 +262,55 @@ if (lres > 1) & (lhres > 1):
     except:
         st.write('there was a problem while running the peak height drift analysis')
         
+st.write(':heavy_minus_sign:' * 35)
+
+st.write(':heavy_minus_sign:' * 35)
+st.markdown('''# Growth control section''')
+
+
+
+try:
+
+    
+    
+    st.write('#### indicate the intensity measurement')
+    s_st.value_column = st.selectbox('select the intensity measurement \n', ['peak_max', 'peak_area'])
+    st.write(s_st.value_column)
+    
+    st.write('#### indicate the growth control sample')
+    s_st.gr_flag = st.text_input("growth control sample flag", 'ATCC')
+    
+    
+    st.write('#### indicate the media control sample')
+    s_st.me_flag = st.text_input("media control sample flag", 'MHPool')
+    
+    st.write('#### indicate the compound used for growing measurement')
+    s_st.cp = st.selectbox('select the growing measurement compound \n', list(np.unique(s_st.results.peak_label)))
+    
+    st.write('#### indicate if the compound used for growing measurement is a consuming or a secreting one')
+    s_st.flux = st.selectbox('select the compound interchange type \n', ['influx', 'eflux'])    
+    
+    st.write('#### set a threshold for the ratio between the growth control samples and the media control samples')
+    s_st.threshold_0 = float(st.text_input("set a threshold for GControl/MSamples", '100'))
+    
+    div = np.mean(s_st.results0[s_st.value_column][(s_st.results0.peak_label == s_st.cp) & (s_st.results0.ms_file.str.contains(s_st.gr_flag))]) / \
+       np.mean(s_st.results0[s_st.value_column][(s_st.results0.peak_label == s_st.cp) & (s_st.results0.ms_file.str.contains(s_st.me_flag))])
+    
+    
+    st.write('the fraction of the compound between the growth media and the control control samples is:')
+    st.write(1/div)
+    
+    if (s_st.flux == 'influx') & (div > 1/s_st.threshold_0):
+        st.write('# Hey Sr, your controls didnt grow that well 😭😭😭😭😭')
+        
+    elif (s_st.flux == 'eflux') & (div < 1/s_st.threshold_0):
+        st.write('# Hey Sr, your controls didnt grow that well 😭😭😭😭😭')    
+    else:
+        st.write('# Hey Sr, it looks like your controls grew well 🥳🥳🥳🥳🥳')
+    
+except:
+    st.write('some point in your settings failed')
+
+
+
 st.write(':heavy_minus_sign:' * 35)
