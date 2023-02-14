@@ -198,7 +198,7 @@ if (lres > 1) & (lhres > 1):
         st.write('#### mz drift cannot be carried out, the columns for rt drift are missing from current results data')
     else:
         st.write('#### indicate a threshold for RT drift in percent')
-        s_st.rt_dt = float( st.text_input("maximum acceptable retention time drift", '5') )
+        s_st.rt_dt = float( st.text_input("maximum acceptable retention time drift", '1') )
         st.write('#### indicate a threshold for the number of problematic samples')
         s_st.ps_th1 = float( st.text_input("maximum aceptable number of samples for rt drift", '5') )        
         
@@ -214,7 +214,7 @@ if (lres > 1) & (lhres > 1):
                                                                          (s_st.historical_results.STDType == sample)])
                     n2 = np.mean(s_st.results.peak_rt_of_max[(s_st.results.peak_label == compound) & \
                                                                           (s_st.results.STDType == sample)])
-                    if abs(n1 - n2)/max(n1,n2) > s_st.rt_dt/100.:
+                    if abs(n1 - n2) > s_st.rt_dt:
                         k += 1
 #                         st.write('problematic compound: ' + compound + ' in sample: ' +  s_st.std_flag + str(sample) +  ' with ' + \
 #                                  str( np.round(100*abs(n1 - n2)/max(n1,n2), 2)) + ' percent in rt drift' )
@@ -310,7 +310,5 @@ try:
     
 except:
     st.write('some point in your settings failed')
-
-
 
 st.write(':heavy_minus_sign:' * 35)
