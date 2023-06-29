@@ -1,3 +1,3 @@
 # QC_metabolomics
 
-this project is to create a local application to perform real-time quality control of metabolomics
+Scalir is a tool designed to help researchers to standardize metabolomics data by using standard samples. The tool can be used online or in a local pc if the requirements are installed. 
