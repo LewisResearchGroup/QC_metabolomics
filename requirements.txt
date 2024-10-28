@@ -3,3 +3,4 @@ streamlit==0.82.0
 matplotlib==3.4.2
 openpyxl==3.0.10
 numpy==1.22.3
+protobuf<=3.20.1
