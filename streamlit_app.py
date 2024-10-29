@@ -172,24 +172,24 @@ if (lres > 1) & (lhres > 1):
         st.write('#### mz drift cannot be carried out, the columns for mz are missing from current results data')
     else:
         st.write('running the mz drift analysis')
-    try:
-        if (('peak_mass_diff_50pc' in s_st.historical_results.columns) & ('peak_mass_diff_50pc' in s_st.results.columns) ):
-            st.write('#### indicate a threshold for mz drift')
-            s_st.mz_dt = float(st.text_input("maximum acceptable mz drift", '5'))
-            
-            for compound in s_st.intersection_compounds:
-                for sample in s_st.intersection_samples:
-                    
-                    n1 = np.mean(s_st.historical_results.peak_mass_diff_50pc[(s_st.historical_results.peak_label == compound) & \
-                                                                          (s_st.historical_results.STDType == sample)])
-                    n2 = np.mean(s_st.results.peak_mass_diff_50pc[(s_st.results.peak_label == compound) & \
-                                                                          (s_st.results.STDType == sample)])
-                    if abs(n1 - n2) > s_st.mz_dt:
-                        st.write('problematic compound: ' + compound + ' in sample: ' + s_st.std_flag +  str(sample) +  ' with ' + \
-                                 str(np.round(abs(n1-n2), 2)) + ' ppm drift' )  
-                        
-    except:
-        st.write('there was a problem while running the mz drift analysis')
+        try:
+            if (('peak_mass_diff_50pc' in s_st.historical_results.columns) & ('peak_mass_diff_50pc' in s_st.results.columns) ):
+                st.write('#### indicate a threshold for mz drift')
+                s_st.mz_dt = float(st.text_input("maximum acceptable mz drift", '5'))
+                
+                for compound in s_st.intersection_compounds:
+                    for sample in s_st.intersection_samples:
+                        st.write(sample)
+                        n1 = np.mean(s_st.historical_results.peak_mass_diff_50pc[(s_st.historical_results.peak_label == compound) & \
+                                                                              (s_st.historical_results.STDType == sample)])
+                        n2 = np.mean(s_st.results.peak_mass_diff_50pc[(s_st.results.peak_label == compound) & \
+                                                                              (s_st.results.STDType == sample)])
+                        if abs(n1 - n2) > s_st.mz_dt:
+                            st.write('problematic compound: ' + compound + ' in sample: ' + s_st.std_flag +  str(sample) +  ' with ' + \
+                                     str(np.round(abs(n1-n2), 2)) + ' ppm drift' )  
+                            
+        except:
+            st.write('there was a problem while running the mz drift analysis')
         
    #### TESTING FOR RT DRIFT ########
     if (('peak_rt_of_max' in s_st.historical_results.columns) == False):
