@@ -175,7 +175,7 @@ if (lres > 1) & (lhres > 1):
         try:
             if (('peak_mass_diff_50pc' in s_st.historical_results.columns) & ('peak_mass_diff_50pc' in s_st.results.columns) ):
                 st.write('#### indicate a threshold for mz drift')
-                s_st.mz_dt = float(st.text_input("maximum acceptable mz drift", '5'))
+                s_st.mz_dt = float(st.text_input("maximum acceptable mz drift", '1'))
                 # st.write(list(s_st.intersection_samples))
                 for compound in s_st.intersection_compounds:
                     drift = 0
@@ -191,7 +191,7 @@ if (lres > 1) & (lhres > 1):
                         if abs(n1 - n2) > s_st.mz_dt:
                             st.write('problematic compound: ' + compound + ' in sample: ' + s_st.std_flag +  str(sample) +  ' with ' + \
                                      str(np.round(abs(n1-n2), 2)) + ' ppm drift' )  
-                    st.write(compound + 'average mz drift is about ' + str(np.round(drift/k, 3)))
+                    st.write(compound + ' average mz drift is about ' + str(np.round(drift/k, 3)))
                           
         except:
             st.write('there was a problem while running the mz drift analysis')
