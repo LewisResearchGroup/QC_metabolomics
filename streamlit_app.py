@@ -210,11 +210,15 @@ if (lres > 1) & (lhres > 1):
                     st.write(compound)
                     k = 0
                     for sample in s_st.intersection_samples:
+                        st.write(sample)
                     
                         n1 = np.mean(s_st.historical_results.peak_rt_of_max[(s_st.historical_results.peak_label == compound) & \
                                                                              (s_st.historical_results.STDType == sample)])
                         n2 = np.mean(s_st.results.peak_rt_of_max[(s_st.results.peak_label == compound) & \
                                                                               (s_st.results.STDType == sample)])
+
+                        st.write(n1)
+                        st.write(n2)
                         if abs(n1 - n2) > s_st.rt_dt:
                             k += 1
     #                         st.write('problematic compound: ' + compound + ' in sample: ' +  s_st.std_flag + str(sample) +  ' with ' + \
