@@ -139,20 +139,13 @@ if (lres > 1) & (lhres > 1):
     
     ### numbering the standard samples by the file name ###
     try:
-        s_st.historical_results.STDType = s_st.historical_results.ms_file_label.apply(lambda x: int(x.split('Std')[-1]))
-        st.write(np.unique(s_st.historical_results.STDType))
-        
+        s_st.historical_results.STDType = s_st.historical_results.ms_file_label.apply(lambda x: int(x.split('Std')[-1]))        
         s_st.results['STDType'] = s_st.results.ms_file_label.apply(lambda x: int(x.split('Std')[-1]))
         
         st.write('there are ' + str(len(np.unique(s_st.historical_results.STDType))) + ' types of ' + s_st.std_flag + ' sample types in the historical results file')
         st.write('there are ' + str(len(np.unique(s_st.results.STDType))) + ' types of ' + s_st.std_flag + ' sample types in the results file')
         
         s_st.intersection_samples =  np.intersect1d(np.unique(s_st.historical_results.STDType), np.unique(s_st.results.STDType))
-
-        
-        # st.write(np.unique(s_st.historical_results.STDType))
-        # st.write(list(np.unique(s_st.results.STDType)))
-        # st.write(np.intersect1d(np.unique(s_st.historical_results.STDType), np.unique(s_st.results.STDType)))
         st.write('with ' + str(len(s_st.intersection_samples)) + ' samples in the intersection')
 
     
@@ -183,7 +176,7 @@ if (lres > 1) & (lhres > 1):
             if (('peak_mass_diff_50pc' in s_st.historical_results.columns) & ('peak_mass_diff_50pc' in s_st.results.columns) ):
                 st.write('#### indicate a threshold for mz drift')
                 s_st.mz_dt = float(st.text_input("maximum acceptable mz drift", '5'))
-                st.write(list(s_st.intersection_samples))
+                # st.write(list(s_st.intersection_samples))
                 for compound in s_st.intersection_compounds:
                     for sample in s_st.intersection_samples:
                         st.write(sample)
