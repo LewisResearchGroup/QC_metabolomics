@@ -204,28 +204,29 @@ if (lres > 1) & (lhres > 1):
         
         st.write('running the rt drift analysis ...')
         
-    try:
-        if (('peak_rt_of_max' in s_st.historical_results.columns) & ('peak_rt_of_max' in s_st.results.columns) ):
-            for compound in s_st.intersection_compounds:
-                k = 0
-                for sample in s_st.intersection_samples:
-                
-                    n1 = np.mean(s_st.historical_results.peak_rt_of_max[(s_st.historical_results.peak_label == compound) & \
-                                                                         (s_st.historical_results.STDType == sample)])
-                    n2 = np.mean(s_st.results.peak_rt_of_max[(s_st.results.peak_label == compound) & \
-                                                                          (s_st.results.STDType == sample)])
-                    if abs(n1 - n2) > s_st.rt_dt:
-                        k += 1
-#                         st.write('problematic compound: ' + compound + ' in sample: ' +  s_st.std_flag + str(sample) +  ' with ' + \
-#                                  str( np.round(100*abs(n1 - n2)/max(n1,n2), 2)) + ' percent in rt drift' )
-                
-                if k > s_st.ps_th1:
-                    st.write(compound + ' showed problems in ' + str(k) + ' samples')
-                else:
-                    st.write(compound + ' OK')
-                
-    except:
-        st.write('there was a problem while running the rt drift analysis')
+        try:
+            if (('peak_rt_of_max' in s_st.historical_results.columns) & ('peak_rt_of_max' in s_st.results.columns) ):
+                for compound in s_st.intersection_compounds:
+                    st.write(compound)
+                    k = 0
+                    for sample in s_st.intersection_samples:
+                    
+                        n1 = np.mean(s_st.historical_results.peak_rt_of_max[(s_st.historical_results.peak_label == compound) & \
+                                                                             (s_st.historical_results.STDType == sample)])
+                        n2 = np.mean(s_st.results.peak_rt_of_max[(s_st.results.peak_label == compound) & \
+                                                                              (s_st.results.STDType == sample)])
+                        if abs(n1 - n2) > s_st.rt_dt:
+                            k += 1
+    #                         st.write('problematic compound: ' + compound + ' in sample: ' +  s_st.std_flag + str(sample) +  ' with ' + \
+    #                                  str( np.round(100*abs(n1 - n2)/max(n1,n2), 2)) + ' percent in rt drift' )
+                    
+                    if k > s_st.ps_th1:
+                        st.write(compound + ' showed problems in ' + str(k) + ' samples')
+                    else:
+                        st.write(compound + ' OK')
+                    
+        except:
+            st.write('there was a problem while running the rt drift analysis')
 
    #### TESTING FOR PEAK_MAX DRIFT ########
     if (('peak_max' in s_st.historical_results.columns) == False):
