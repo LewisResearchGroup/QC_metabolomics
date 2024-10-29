@@ -178,20 +178,21 @@ if (lres > 1) & (lhres > 1):
                 s_st.mz_dt = float(st.text_input("maximum acceptable mz drift", '1'))
                 # st.write(list(s_st.intersection_samples))
                 for compound in s_st.intersection_compounds:
-                    drift = 0
-                    k = 0
+                    # drift = 0
+                    # k = 0
                     for sample in s_st.intersection_samples:
                         # st.write(sample)
                         n1 = np.mean(s_st.historical_results.peak_mass_diff_50pc[(s_st.historical_results.peak_label == compound) & \
                                                                               (s_st.historical_results.STDType == sample)])
+                        
                         n2 = np.mean(s_st.results.peak_mass_diff_50pc[(s_st.results.peak_label == compound) & \
                                                                               (s_st.results.STDType == sample)])
-                        drift += abs(n1 - n2)
-                        k += 1
+                        # drift += abs(n1 - n2)
+                        # k += 1
                         if abs(n1 - n2) > s_st.mz_dt:
                             st.write('problematic compound: ' + compound + ' in sample: ' + s_st.std_flag +  str(sample) +  ' with ' + \
                                      str(np.round(abs(n1-n2), 2)) + ' ppm drift' )  
-                    st.write(compound + ' average mz drift is about ' + str(np.round(drift/k, 3)))
+                    # st.write(compound + ' average mz drift is about ' + str(np.round(drift/k, 3)))
                           
         except:
             st.write('there was a problem while running the mz drift analysis')
