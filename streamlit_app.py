@@ -139,15 +139,14 @@ if (lres > 1) & (lhres > 1):
     
     ### numbering the standard samples by the file name ###
     try:
-        # s_st.historical_results['STDType'] = s_st.historical_results.ms_file_label.apply(lambda x: x.split('.')[0])
         s_st.historical_results.STDType = s_st.historical_results.ms_file_label.apply(lambda x: int(x.split('Std')[-1]))
         st.write(np.unique(s_st.historical_results.STDType))
         
-        s_st.results['STDType'] = s_st.results.ms_file.apply(lambda x: x.split('.')[0])
-        s_st.results.STDType = s_st.results.STDType.apply(lambda x: int(x.split('Std')[-1]))
+        s_st.results['STDType'] = s_st.results.ms_file_label.apply(lambda x: int(x.split('Std')[-1]))
         
         st.write('there are ' + str(len(np.unique(s_st.historical_results.STDType))) + ' types of ' + s_st.std_flag + ' sample types in the historical results file')
         st.write('there are ' + str(len(np.unique(s_st.results.STDType))) + ' types of ' + s_st.std_flag + ' sample types in the results file')
+        
         s_st.intersection_samples =  np.intersect1d(np.unique(s_st.historical_results.STDType), np.unique(s_st.results.STDType))
 
         
