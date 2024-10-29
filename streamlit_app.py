@@ -139,8 +139,8 @@ if (lres > 1) & (lhres > 1):
     
     ### numbering the standard samples by the file name ###
     try:
-        s_st.historical_results['STDType'] = s_st.historical_results.ms_file.apply(lambda x: x.split('.')[0])
-        s_st.historical_results.STDType = s_st.historical_results.STDType.apply(lambda x: int(x.split('Std')[-1]))
+        # s_st.historical_results['STDType'] = s_st.historical_results.ms_file_label.apply(lambda x: x.split('.')[0])
+        s_st.historical_results.STDType = s_st.historical_results.ms_file_label.apply(lambda x: int(x.split('Std')[-1]))
         st.write(np.unique(s_st.historical_results.STDType))
         
         s_st.results['STDType'] = s_st.results.ms_file.apply(lambda x: x.split('.')[0])
