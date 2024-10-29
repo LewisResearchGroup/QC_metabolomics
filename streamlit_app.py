@@ -141,6 +141,7 @@ if (lres > 1) & (lhres > 1):
     try:
         s_st.historical_results['STDType'] = s_st.historical_results.ms_file.apply(lambda x: x.split('.')[0])
         s_st.historical_results.STDType = s_st.historical_results.STDType.apply(lambda x: int(x.split('Std')[-1]))
+        st.write(np.unique(s_st.historical_results.STDType))
         
         s_st.results['STDType'] = s_st.results.ms_file.apply(lambda x: x.split('.')[0])
         s_st.results.STDType = s_st.results.STDType.apply(lambda x: int(x.split('Std')[-1]))
@@ -150,8 +151,8 @@ if (lres > 1) & (lhres > 1):
         s_st.intersection_samples =  np.intersect1d(np.unique(s_st.historical_results.STDType), np.unique(s_st.results.STDType))
 
         
-        st.write(list(np.unique(s_st.historical_results.STDType)))
-        st.write(list(np.unique(s_st.results.STDType)))
+        # st.write(np.unique(s_st.historical_results.STDType))
+        # st.write(list(np.unique(s_st.results.STDType)))
         # st.write(np.intersect1d(np.unique(s_st.historical_results.STDType), np.unique(s_st.results.STDType)))
         st.write('with ' + str(len(s_st.intersection_samples)) + ' samples in the intersection')
 
@@ -165,7 +166,7 @@ if (lres > 1) & (lhres > 1):
         st.write('there are ' + str(len(np.unique(s_st.results.peak_label))) +' compounds in the results data')
         s_st.intersection_compounds = np.intersect1d(np.unique(s_st.historical_results.peak_label), np.unique(s_st.results.peak_label))
         st.write('with ' + str(len(s_st.intersection_compounds)) + ' compounds in the intersection' )
-        s_st.historical_results = s_st.historical_results
+        # s_st.historical_results = s_st.historical_results
     except:
         st.write('there is a problem with the compounds intersection between the historical data and the current results')
         
