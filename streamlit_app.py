@@ -150,7 +150,7 @@ if (lres > 1) & (lhres > 1):
         s_st.intersection_samples =  np.intersect1d(np.unique(s_st.historical_results.STDType), np.unique(s_st.results.STDType))
         st.write(list(np.unique(s_st.historical_results.STDType)))
         st.write(list(np.unique(s_st.results.STDType)))
-        st.write(np.intersect1d(np.unique(s_st.historical_results.STDType), np.unique(s_st.results.STDType)))
+        # st.write(np.intersect1d(np.unique(s_st.historical_results.STDType), np.unique(s_st.results.STDType)))
         st.write('with ' + str(len(s_st.intersection_samples)) + ' samples in the intersection')
     except:
         st.write('there is a problem with the standard sample numbering')
