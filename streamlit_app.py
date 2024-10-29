@@ -176,7 +176,7 @@ if (lres > 1) & (lhres > 1):
             if (('peak_mass_diff_50pc' in s_st.historical_results.columns) & ('peak_mass_diff_50pc' in s_st.results.columns) ):
                 st.write('#### indicate a threshold for mz drift')
                 s_st.mz_dt = float(st.text_input("maximum acceptable mz drift", '5'))
-                st.write(list(s_st.intersection_compounds))
+                st.write(list(s_st.intersection_samples))
                 for compound in s_st.intersection_compounds:
                     for sample in s_st.intersection_samples:
                         st.write(sample)
