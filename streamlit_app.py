@@ -207,7 +207,7 @@ if (lres > 1) & (lhres > 1):
         try:
             if (('peak_rt_of_max' in s_st.historical_results.columns) & ('peak_rt_of_max' in s_st.results.columns) ):
                 for compound in s_st.intersection_compounds:
-                    st.write(compound)
+                    st.write(len(s_st.intersection_samples))
                     k = 0
                     for sample in s_st.intersection_samples:
                         st.write(sample)
